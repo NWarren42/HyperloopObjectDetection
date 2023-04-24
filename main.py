@@ -33,7 +33,7 @@ def index():
 # Define the route for the video feed
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')it
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 # Define the route for the machine learning output
 @app.route('/output')
 def output():
