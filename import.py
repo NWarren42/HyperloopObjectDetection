@@ -1,0 +1,1 @@
+from datsetTraining.webcamTest import objectDetection

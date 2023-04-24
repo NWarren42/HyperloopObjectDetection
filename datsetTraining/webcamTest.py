@@ -9,31 +9,34 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 #from object_detection.utils import visualization_utils as viz_utils
 #from object_detection.utils import config_util
 
-model= keras.models.load_model('completeSavedModel')
+model= keras.models.load_model('datsetTraining/completeSavedModel')
 
+def objectDetection(cap):
+# cap = cv2.VideoCapture(0)
+# width= int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+# height= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-cap = cv2.VideoCapture(0)
-width= int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-labels =[ 'Back Phone', 'Front Phone', 'Nut', 'Screw', 'Wallet']
-while (True):
+    labels =[ 'Back Phone', 'Front Phone', 'Nut', 'Screw', 'Wallet']
+    # while (True):
     ret, frame = cap.read()
 
     frame = cv2.resize(frame, (256, 256))
     frame = frame.reshape(-1,256,256,3)
 
     detections = model(frame)
-    print(detections)
+    # print(detections)
     softmax = tf.nn.softmax(detections)
-    print(softmax)
-    frame = frame.reshape(256, 256, 3)
-    cv2.imshow('object detection', frame)
+    index = tf.math.argmax(softmax, axis=-1)[0]
+    return labels[index]
+    # print(softmax)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # frame = frame.reshape(256, 256, 3)
+    # cv2.imshow('object detection', frame)
 
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
+    
 
-cap.release()
-# Destroy all the windows
-cv2.destroyAllWindows()
+    # cap.release()
+    # # Destroy all the windows
+    # cv2.destroyAllWindows()
