@@ -49,7 +49,7 @@ def threshold(image):
     return thresh
 # apply hough line transformation
 def hough(image):
-    return cv2.HoughLinesP(image, 2, np.pi/180, threshold=100, minLineLength=50, maxLineGap=5)
+    return cv2.HoughLinesP(image, 2, np.pi/180, threshold=100, minLineLength=50, maxLineGap=20)
 # average out left edge of track and right edge of track
 def smooth_lines(image, lines):
     left = []
