@@ -5,11 +5,7 @@ import line_detection as ld
 from datsetTraining.webcamTest import objectDetection as od
 
 app = Flask(__name__)
-# Define the function that will analyze the camera feed and return results
-def analyze_camera_feed():
-    # ...
-    results = ''
-    return results
+
 # Define the function that will capture frames from the camera
 def gen_frames():
     camera = cv2.VideoCapture(0)
@@ -41,15 +37,6 @@ def index():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-# Define the route for the machine learning output
-@app.route('/output')
-def output():
-    results = analyze_camera_feed()
-    return render_template('output.html', results=results)
-# Define the route for stopping the analyzed object
-@app.route('/stop', methods=['POST'])
-def stop():
-    # ...
-    return "Object stopped"
+
 if __name__ == '__main__':
     app.run(debug=True)
